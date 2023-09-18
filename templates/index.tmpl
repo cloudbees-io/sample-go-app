@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>CloudBees CD/RO Demo App</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: {{ .color }};
+            color: {{ .textColor }};
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            background-image: linear-gradient(45deg, {{ .color }} 10%, rgba(255, 255, 255, 0.1));
+            overflow-wrap: break-word;
+        }
+        .container {
+            text-align: left;
+            border-radius: 10px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            max-width: 80%;
+        }
+        .label {
+            font-weight: 300;
+            font-size: 16px;
+            margin: 10px 0 0;
+        }
+        .value {
+            font-weight: 700;
+            font-size: 24px;
+            margin: 0px 0 10px;
+            line-height: 0.9;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            font-weight: 600;
+        }
+        a {
+            color: {{ .textColor }};
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="label">Environment:</div>
+        <div class="value">{{ .environment }}</div>
+        <div class="label">Git Commit SHA:</div>
+        <div class="value">{{ .sha }}</div>
+        <div class="label">Resources:</div>
+        <ul>
+            <!--TODO: Update these links once we have the right docs pages -->
+            <li><a href="https://docs.cloudbees.com/docs/cloudbees-cd/latest/">Documentation</a></li>
+            <li><a href="https://github.com/">Actions Library</a></li>
+        </ul>
+    </div>
+</body>
+</html>
