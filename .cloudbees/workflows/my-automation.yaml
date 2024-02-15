@@ -23,25 +23,32 @@ jobs:
         uses: docker://golang:1.20
         run: |
           go test -v ./...
-      - name: Docker sign-in
-        id: docker-sign-in-id
-        uses: docker://alpine:3.17
-        env:
-          DOCKER_USERNAME: ${{ vars.QUICKSTART_DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.QUICKSTART_DOCKER_PASSWORD }}
-        run: |
-          AUTH=$(echo -n "${DOCKER_USERNAME}:${DOCKER_PASSWORD}" | base64)
-          mkdir -p $HOME/.docker
-          cat << EOF > "$HOME/.docker/config.json"
-          {
-              "auths": {
-                "https://index.docker.io/v1/": {
-                    "auth": "${AUTH}"
-                }
-              }
-          }
-          EOF
+      - id: dockerconfig
+        name: Configure container registry credentials
+        uses: cloudbees-io/configure-oci-credentials@v1
+        with:
+          registry: ${{ vars.DOCKER_REGISTRY }}
+          username: ${{ secrets.CORINNE_DOCKER_USERNAME }}
+          password: ${{ secrets.CORINNE_DOCKER_PASSWORD }}
+      # - name: Docker sign-in
+      #   id: docker-sign-in-id
+      #   uses: docker://alpine:3.17
+      #   env:
+      #     DOCKER_USERNAME: ${{ vars.QUICKSTART_DOCKER_USERNAME }}
+      #     DOCKER_PASSWORD: ${{ secrets.QUICKSTART_DOCKER_PASSWORD }}
+      #   run: |
+      #     AUTH=$(echo -n "${DOCKER_USERNAME}:${DOCKER_PASSWORD}" | base64)
+      #     mkdir -p $HOME/.docker
+      #     cat << EOF > "$HOME/.docker/config.json"
+      #     {
+      #         "auths": {
+      #           "https://index.docker.io/v1/": {
+      #               "auth": "${AUTH}"
+      #           }
+      #         }
+      #     }
+      #     EOF
       - name: Push image to registry
         uses: cloudbees-io/kaniko@v1
         with:
-          destination: index.docker.io/${{ vars.QUICKSTART_DOCKER_USERNAME }}/my-sample-go-app:1.0.0
+          destination: ${{ vars.DOCKER_REGISTRY }}/my-sample-go-app:latest
