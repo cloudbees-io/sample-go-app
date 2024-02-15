@@ -33,4 +33,4 @@ jobs:
       - name: Push image to registry
         uses: cloudbees-io/kaniko@v1
         with:
-          destination: ${{ vars.CORINNE_DOCKER_REGISTRY }}/my-sample-go-app:latest
+          destination: ${{ vars.CORINNE_DOCKER_REGISTRY }}/${{ secrets.CORINNE_DOCKER_USERNAME }}/my-sample-go-app:latest
