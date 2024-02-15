@@ -27,10 +27,10 @@ jobs:
         name: Configure container registry credentials
         uses: cloudbees-io/configure-oci-credentials@v1
         with:
-          registry: ${{ vars.DOCKER_REGISTRY }}
+          registry: ${{ vars.CORINNE_DOCKER_REGISTRY }}
           username: ${{ secrets.CORINNE_DOCKER_USERNAME }}
           password: ${{ secrets.CORINNE_DOCKER_PASSWORD }}
       - name: Push image to registry
         uses: cloudbees-io/kaniko@v1
         with:
-          destination: ${{ vars.DOCKER_REGISTRY }}/my-sample-go-app:latest
+          destination: ${{ vars.CORINNE_DOCKER_REGISTRY }}/my-sample-go-app:latest
