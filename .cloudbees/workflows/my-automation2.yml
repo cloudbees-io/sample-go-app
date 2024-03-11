@@ -3,6 +3,8 @@ kind: workflow
 name: My automation
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches:
       - '**'
