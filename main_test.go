@@ -11,8 +11,7 @@ func TestGetCommitSha(t *testing.T) {
 	ioutil.WriteFile("sha.txt", []byte(sha), 0644)
 	defer os.Remove("sha.txt")
 	result := getCommitSha()
-	// blabla
-	if result == sha {
+	if result != sha {
 		t.Errorf("getCommitSha() = %s; want %s", result, sha)
 	}
 }
