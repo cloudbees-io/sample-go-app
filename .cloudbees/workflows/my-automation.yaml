@@ -1,13 +1,13 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
 name: My automation
-
 on:
   push:
     branches:
-      - '**'
-
-
+      - "**"
+  pull_request:
+    branches:
+      - "**"
 jobs:
   ci-job:
     steps:
@@ -34,4 +34,5 @@ jobs:
       - name: Push image to registry
         uses: cloudbees-io/kaniko@v1
         with:
-          destination: ${{ vars.CORINNE_DOCKER_REGISTRY }}/${{ secrets.CORINNE_DOCKER_USERNAME }}/my-sample-go-app:latest
+          destination: ${{ vars.CORINNE_DOCKER_REGISTRY }}/${{
+            secrets.CORINNE_DOCKER_USERNAME }}/my-sample-go-app:latest
