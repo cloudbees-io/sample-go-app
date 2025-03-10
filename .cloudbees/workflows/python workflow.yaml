@@ -1,0 +1,17 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: Python Lite Workflow
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+jobs:
+  run-python:
+    steps:
+      - name: Run Python Script
+        uses: docker://python:3.11-alpine
+        shell: sh
+        run: |
+          echo "print('Hello from Python!')" > script.py
+          python script.py
